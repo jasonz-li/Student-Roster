@@ -1,2 +1,2 @@
-public class International extends Student{
+public class International extends NonResident{
 }
