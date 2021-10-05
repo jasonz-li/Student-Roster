@@ -1,7 +1,17 @@
 public class Student {
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-        System.out.println("Hello John");
+    Profile profile;
+
+    //Constructors
+    public Student(){
     }
+
+    public Student (String name, String major){
+        this.profile = new Profile(name, major);
+    }
+
+    //Treat like an abstract class
+    public void tuitionDue() {
+    }
+
 }
 
