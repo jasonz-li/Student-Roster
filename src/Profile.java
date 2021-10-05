@@ -1,25 +1,37 @@
 public class Profile {
+
+    //John
     private String name;
-    private Major major; // 5 majors and 2 characters each: CS, IT, BA, EE, ME
+    private Major major; //5 majors and 2-characters each: CS, IT, BA, EE, ME
 
-
-
+    public Profile(String name, String major){
+        this.name = name;
+        this.major = Major.valueOf(major);
+    }
     @Override
-    public boolean equals(Object obj) {
-        Profile input = Profile.class.cast(obj);
-        if ((this.name.equals(input.name)) && (this.major == input.major)){
+    public boolean equals(Object o){
+        if (o == this) {
             return true;
         }
-        else{
-            return false;
+        if(o instanceof Profile){
+            Profile newProf = (Profile) o;
+            if(this.getName().equals(newProf.getName()) && this.getMajor().equals(newProf.getMajor())){
+                return true;
+            }
         }
+        return false;
     }
-
 
     @Override
-    public String toString() {
-        return this.name + ":" + this.major; // ????? not sure if this is correct return
+    public String toString(){
+        return this.name + ", " + this.major.toString();
     }
 
-    //profile, tution manger, roster
+    public String getName(){
+        return this.name;
+    }
+
+    public String getMajor(){
+        return this.major.toString();
+    }
 }

@@ -1,11 +1,11 @@
-import java.util.Locale;
-
 public class TriState extends NonResident{
     boolean livesInCT;
     boolean livesInNY;
+    int credits;
+    double total;
 
-    public TriState(Profile profile, int credits, String state){
-        super(profile);
+    public TriState(String name, String major, int credits, String state){
+        super(name, major, credits);
         if (state.toUpperCase().equals("NY")){
             this.livesInCT = false;
             this.livesInNY = true;
@@ -16,10 +16,34 @@ public class TriState extends NonResident{
         }
     }
 
+    public void tuitionDue() {
+        double tuition = 29737;
+        double fee = 3268;
+        double NYDiscount = 4000;
+        double CTDiscount = 5000;
+        if (livesInCT == true){ // CT discount
+            if (this.credits > 16){
+                tuition += fee - CTDiscount + 966 * this.credits;
+            }
+            else{
+                tuition += fee - CTDiscount;
+            }
+        }
+        else{ // NY discount
+            if (this.credits > 16){
+                tuition += fee - NYDiscount + 966 * this.credits;
+            }
+            else{
+                tuition += fee - NYDiscount;
+            }
+        }
+        this.total = tuition;
+    }
+
     @Override
     public boolean equals(Object obj) {
         TriState input = TriState.class.cast(obj);
-        if (input.livesInNY == this.livesInNY && input.livesInCT == this.livesInCT){ // add this.profile.equals???
+        if (input.livesInNY == this.livesInNY && input.livesInCT == this.livesInCT && this.profile.){ // add this.profile.equals???
             return true;
         }
         else{
