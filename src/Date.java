@@ -47,7 +47,7 @@ public class Date implements Comparable<Date> {
      * @return returns true if its valid and false if it's not
      */
     public boolean isValid() {
-        final int THE_EIGHTIES = 1980, TWENTY_EIGHT_DAYS = 28, TWENTY_NINE_DAYS = 29, THIRTY_DAYS = 30, THIRTY_ONE_DAYS = 31;
+        final int TWENTY_TWENTY_ONE = 2021, TWENTY_EIGHT_DAYS = 28, TWENTY_NINE_DAYS = 29, THIRTY_DAYS = 30, THIRTY_ONE_DAYS = 31;
         final int JAN = 1, FEB = 2, MAR = 3;
         final int APR = 4;
         final int MAY = 5;
@@ -79,8 +79,8 @@ public class Date implements Comparable<Date> {
             LEAP_YEAR = false;
         }
 
-        //Checks for the 80's
-        if(this.year < THE_EIGHTIES) return false;
+        //Checks for before 2021
+        if(this.year < TWENTY_TWENTY_ONE) return false;
         //checks if the date is greater than today
         Date today = new Date();
         if (this.compareTo(today) == 1){
@@ -124,57 +124,8 @@ public class Date implements Comparable<Date> {
      *
      * @return date in mm/dd/yyyy format
      */
-
     public String getDate() {
         return month + "/" + day + "/" + year;
     }
 
-    /**
-     * Testbed is meant to test the isValid() method according to the Testbed Document
-     * @param args takes arguments from command line
-     */
-    public static void main(String[] args){
-        Date case1 = new Date("03/22/1979"); //Case 1
-        System.out.println(case1.isValid());
-        Date case2 = new Date("09/26/2022"); //Case 2
-        System.out.println(case2.isValid());
-        Date case3 = new Date("01/33/2000"); //Case 3
-        System.out.println(case3.isValid());
-        Date case4 = new Date("03/33/2000"); //Case 4
-        System.out.println(case4.isValid());
-        Date case5 = new Date("05/34/2000"); //Case 5
-        System.out.println(case5.isValid());
-        Date case6 = new Date("05/31/2000"); //Case 6
-        System.out.println(case6.isValid());
-        Date case7 = new Date("07/33/2000"); //Case 7
-        System.out.println(case7.isValid());
-        Date case8 = new Date("08/33/2000"); //Case 8
-        System.out.println(case8.isValid());
-        Date case9 = new Date("08/31/2000"); //Case 9
-        System.out.println(case9.isValid());
-        Date case10 = new Date("10/33/2000"); //Case 10
-        System.out.println(case10.isValid());
-        Date case11 = new Date("12/33/2000"); //Case 11
-        System.out.println(case11.isValid());
-        Date case12 = new Date("12/31/2000"); //Case 12
-        System.out.println(case12.isValid());
-        Date case13 = new Date("04/31/2000"); //Case 13
-        System.out.println(case13.isValid());
-        Date case14 = new Date("06/31/2000"); //Case 14
-        System.out.println(case14.isValid());
-        Date case15 = new Date("09/31/2000"); //Case 15
-        System.out.println(case15.isValid());
-        Date case16 = new Date("09/30/2000"); //Case 16
-        System.out.println(case16.isValid());
-        Date case17 = new Date("11/31/2000"); //Case 17
-        System.out.println(case17.isValid());
-        Date case18 = new Date("11/30/2000"); //Case 18
-        System.out.println(case18.isValid());
-        Date case19 = new Date("02/29/2003"); //Case 19
-        System.out.println(case19.isValid());
-        Date case20 = new Date("02/30/2004"); //Case 20
-        System.out.println(case20.isValid());
-        Date case21 = new Date("02/29/2004"); //Case 21
-        System.out.println(case21.isValid());
-    }
 }

@@ -6,7 +6,8 @@ public class Profile {
 
     public Profile(String name, String major){
         this.name = name;
-        this.major = Major.valueOf(major);
+        String majorUpperCase = major.toUpperCase();
+        this.major = Major.valueOf(majorUpperCase);
     }
     @Override
     public boolean equals(Object o){

@@ -1,13 +1,10 @@
 public class Resident extends Student {
     //john
-    int creditHours;
     double financialAid = 0;
-    double totalCost = 0;
-    double payment = 0;
+
 
     public Resident (String name, String major, int creditHours){
-        super(name, major);
-        this.creditHours = creditHours;
+        super(name, major, creditHours);
 
     }
     public void tuitionDue() {
@@ -30,10 +27,18 @@ public class Resident extends Student {
     public boolean setFinancialAid(double aid) {
         if (aid < 10000 && aid >= 0) {
             this.financialAid = aid;
+            if(totalCost < financialAid){
+                totalCost = 0;
+            }else{
+                totalCost = totalCost - financialAid;
+            }
             return true;
         } else {
             return false;
         }
     }
+
+
+    //tostring and maybe equals
 
 }
