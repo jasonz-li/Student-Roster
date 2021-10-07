@@ -28,7 +28,14 @@ public class International extends NonResident{
 
     @Override
     public boolean equals(Object obj) {
-
+        International input = International.class.cast(obj);
+        if (input.studyingAbroad == this.studyingAbroad && this.profile.getName().equals(profile.getName())
+                && this.profile.getMajor().equals(input.profile.getMajor())){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
 

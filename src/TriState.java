@@ -43,7 +43,8 @@ public class TriState extends NonResident{
     @Override
     public boolean equals(Object obj) {
         TriState input = TriState.class.cast(obj);
-        if (input.livesInNY == this.livesInNY && input.livesInCT == this.livesInCT && this.profile.){ // add this.profile.equals???
+        if (input.livesInNY == this.livesInNY && input.livesInCT == this.livesInCT && this.profile.getName().equals(profile.getName())
+        && this.profile.getMajor().equals(input.profile.getMajor())){
             return true;
         }
         else{

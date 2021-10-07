@@ -30,13 +30,21 @@ public class NonResident extends Student{
 
 
     @Override
-    public boolean equals(Object obj) { // waiting for super to work
+    public boolean equals(Object obj) {
+        NonResident input = NonResident.class.cast(obj);
+        if (input.fullTime == this.fullTime && this.profile.getName().equals(profile.getName())
+                && this.profile.getMajor().equals(input.profile.getMajor())){
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 
 
     @Override
     public String toString() {
-        return Profile.
     }
 
 }
