@@ -1,8 +1,8 @@
 public class Student {
-    Profile profile;
-    int creditHours;
-    double totalCost = 0;
-    Date date = null;
+    private Profile profile;
+    private int creditHours;
+    private double totalCost = 0;
+    private Date date = null;
 
     //Constructors
     public Student(){
@@ -49,5 +49,16 @@ public class Student {
         }
         return false;
     }
+
+    public Profile getProfile() {return this.profile;}
+
+    public int getCreditHours() {return this.creditHours;}
+
+    public double getTotalCost() {return this.totalCost;}
+
+    public void setTotalCost(double totalCost) {this.totalCost = totalCost;}
+
+    public Date getDate() {return this.date;}
+
 }
 

@@ -1,6 +1,6 @@
 public class Resident extends Student {
     //john
-    double financialAid = 0;
+    private double financialAid = 0;
 
 
     public Resident (String name, String major, int creditHours){
@@ -12,13 +12,13 @@ public class Resident extends Student {
         double partTimeCreditRate = 404;
         double universityFee = 3268;
         int creditsOver16 = 0;
-        if(this.creditHours < 12 && this.creditHours >= 3) {     //part-time
-            totalCost = this.creditHours * partTimeCreditRate + (universityFee * 0.8);
-        }else if(this.creditHours >= 12 && this.creditHours <= 24 ){              //full time
-            if(creditHours > 16){
-                creditsOver16 = creditHours - 16;
+        if(super.getCreditHours() < 12 && super.getCreditHours() >= 3) {     //part-time
+            setTotalCost(super.getCreditHours() * partTimeCreditRate + (universityFee * 0.8));
+        }else if(super.getCreditHours() >= 12 && super.getCreditHours() <= 24 ){              //full time
+            if(super.getCreditHours() > 16){
+                creditsOver16 = super.getCreditHours() - 16;
             }
-            totalCost = tuition + creditsOver16 * partTimeCreditRate + universityFee;
+            setTotalCost(tuition + creditsOver16 * partTimeCreditRate + universityFee);
         }else{
             //improper hours
         }
@@ -27,10 +27,10 @@ public class Resident extends Student {
     public boolean setFinancialAid(double aid) {
         if (aid < 10000 && aid >= 0) {
             this.financialAid = aid;
-            if(totalCost < financialAid){
-                totalCost = 0;
+            if(super.getTotalCost() < financialAid){
+                setTotalCost(0);
             }else{
-                totalCost = totalCost - financialAid;
+                setTotalCost(super.getTotalCost() - financialAid);
             }
             return true;
         } else {

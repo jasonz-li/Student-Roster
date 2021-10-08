@@ -28,6 +28,8 @@ public class Profile {
         return this.name + ", " + this.major.toString();
     }
 
+
+
     public String getName(){
         return this.name;
     }
