@@ -1,8 +1,6 @@
 public class TriState extends NonResident{
     boolean livesInCT;
     boolean livesInNY;
-    int credits;
-    double total;
 
     public TriState(String name, String major, int credits, String state){
         super(name, major, credits);
@@ -22,29 +20,29 @@ public class TriState extends NonResident{
         double NYDiscount = 4000;
         double CTDiscount = 5000;
         if (livesInCT == true){ // CT discount
-            if (this.credits > 16){
-                tuition += fee - CTDiscount + 966 * this.credits;
+            if (this.getCreditHours() > 16){
+                tuition += fee - CTDiscount + 966 * this.getCreditHours();
             }
             else{
                 tuition += fee - CTDiscount;
             }
         }
         else{ // NY discount
-            if (this.credits > 16){
-                tuition += fee - NYDiscount + 966 * this.credits;
+            if (this.getCreditHours() > 16){
+                tuition += fee - NYDiscount + 966 * this.getCreditHours();
             }
             else{
                 tuition += fee - NYDiscount;
             }
         }
-        this.total = tuition;
+        this.setTotalCost(tuition);
     }
 
     @Override
     public boolean equals(Object obj) {
         TriState input = TriState.class.cast(obj);
-        if (input.livesInNY == this.livesInNY && input.livesInCT == this.livesInCT && this.profile.getName().equals(profile.getName())
-        && this.profile.getMajor().equals(input.profile.getMajor())){
+        if (input.livesInNY == this.livesInNY && input.livesInCT == this.livesInCT && this.getProfile().getName().equals(input.getProfile().getName())
+        && this.getProfile().getMajor().equals(input.getProfile().getMajor())){
             return true;
         }
         else{
@@ -55,5 +53,8 @@ public class TriState extends NonResident{
 
     @Override
     public String toString() {
+        String string = this.getProfile().toString() + ", " + this.getCreditHours();
+        return string;
     }
+
 }
