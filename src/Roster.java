@@ -7,9 +7,10 @@ public class Roster {
         size = 0;
     }
 
-    private int find(Student student){
+    private int find(String name, String major){
         for (int i = 0; i < this.size; i++) {
-            if (this.roster[i] == student) {
+            if (this.roster[i].getProfile().getName().equals(name)
+            && this.roster[i].getProfile().getMajor().equals(major)) {
                 return i;
             }
         }
@@ -115,5 +116,26 @@ public class Roster {
         System.out.println("*Album collection by genre.");
         this.printCurrentOrder();
         System.out.println("*End of List");
+    }
+
+
+    public Student findStudent(String name, String major) {
+        Student wantedStudent = new Student();
+        for (int i = 0; i < size; i++) {
+            if (roster[i] != null) {
+                if (roster[i].equals(wantedStudent)) {
+                    return roster[i];
+                }
+            }
+        }
+        return null;
+    }
+
+    public int getSize(){
+        return size;
+    }
+
+    public Student[] getRoster(){
+        return roster;
     }
 }

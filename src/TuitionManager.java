@@ -25,7 +25,9 @@ public class TuitionManager {
                 else if (input.equals("C")){
                     calculate(roster);
                 }
-                System.out.println("Command '" + input + "' not supported!");
+                else{
+                    System.out.println("Command '" + input + "' not supported!");
+                }
             }
             else{
                 ; // do nothing if no input
@@ -43,11 +45,53 @@ public class TuitionManager {
     }
 
     private void handleRSFT(String input, StringTokenizer command, Roster roster){
+        if (command.hasMoreTokens() == false){
+            System.out.println("Missing data in command line.");
+        }
+        else {
+            String name = command.nextToken();
+            String major = command.nextToken();
+            if (input.equals("R")) { // remove me
+                Student target = roster.findStudent(name, major);
+                if (target != null) {
+                    roster.remove(target);
+                    System.out.println("Student removed from the roster.");
+                } else {
+                    System.out.println("Student not in the roster.");
+                }
+            } else if (input.equals("S")) { // set abroad status me
+                if (command.hasMoreTokens() == false) {
+                    System.out.println("Missing data in command line.");
+                } else {
+                    if (roster.findStudent(name, major) != null) {
+                        International.class.cast(roster.findStudent(name, major)).studyingAbroad = true;
+                        if (International.class.cast(roster.findStudent(name, major)).getCreditHours() > 12) {
+                            roster.findStudent(name, major).setCreditHours(0);
+                            System.out.println("Tuition updated.");
+                        }
+                    } else {
+                        System.out.println("Couldn't find international student.");
+                    }
+                }
 
+            }
+
+            else if (input.equals("F")) { // set financial aid
+
+            }
+
+            else if (input.equals("T")) { // pay tuition
+
+            }
+        }
     }
 
-    private void calculate(Roster roster){ // ???????????
 
+    private void calculate(Roster roster){ // ???????????
+        for (int i = 0; i < roster.getSize(); i++){
+            roster.getRoster()[i].tuitionDue();
+        }
+        System.out.println("Calculation completed.");
     }
 }
 

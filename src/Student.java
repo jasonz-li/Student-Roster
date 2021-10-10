@@ -54,6 +54,8 @@ public class Student {
 
     public int getCreditHours() {return this.creditHours;}
 
+    public void setCreditHours(int credits) {this.creditHours = credits;}
+
     public double getTotalCost() {return this.totalCost;}
 
     public void setTotalCost(double totalCost) {this.totalCost = totalCost;}
