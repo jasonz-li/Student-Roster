@@ -66,15 +66,30 @@ public class Roster {
     private void printCurrentOrder(){
         for(int i = 0; i < this.roster.length; i++){
             if(roster[i] != null){
-                System.out.println(roster[i].toString());
+                if(roster[i] instanceof Resident){
+                    Resident student = (Resident) roster[i];
+                    System.out.println(student.toString());
+                }
+                else if(roster[i] instanceof TriState){         ////// NOT SURE IF I CAN DOWNCAST TO A CHILD OF A CHILD
+                    TriState student = (TriState) roster[i];
+                    System.out.println(student.toString());
+                }
+                else if(roster[i] instanceof International){
+                    International student = (International) roster[i];
+                    System.out.println(student.toString());
+                }
+                else if(roster[i] instanceof NonResident){
+                    NonResident student = (NonResident) roster[i];
+                    System.out.println(student.toString());
+                }
             }
         }
     }
 
     public void print() {
-        System.out.println("");
+        System.out.println("* list of students in the roster **");
         this.printCurrentOrder();
-        System.out.println("*End of List");
+        System.out.println("* end of roster **");
     }
 
     public void printByPaymentDate() {
@@ -92,9 +107,9 @@ public class Roster {
             roster[min_idx] = roster[i];
             roster[i] = tempVar;
         }
-        System.out.println("");
+        System.out.println("* list of students made payments ordered by payment date **");
         this.printCurrentOrder();
-        System.out.println("*End of List");
+        System.out.println("* end of roster **");
     }
 
     public void printByName() {
@@ -112,8 +127,28 @@ public class Roster {
             roster[min_idx] = roster[i];
             roster[i] = tempVar;
         }
-        System.out.println("*Album collection by genre.");
+        System.out.println("* list of students ordered by name **");
         this.printCurrentOrder();
-        System.out.println("*End of List");
+        System.out.println("* end of roster **");
+    }
+
+    public Student findStudent(String name, String major) {
+        Student wantedStudent = new Student();
+        for (int i = 0; i < size; i++) {
+            if (roster[i] != null) {
+                if (roster[i].equals(wantedStudent)) {
+                    return roster[i];
+                }
+            }
+        }
+        return null;
+    }
+
+    public int getSize(){
+        return size;
+    }
+
+    public Student[] getRoster(){
+        return roster;
     }
 }

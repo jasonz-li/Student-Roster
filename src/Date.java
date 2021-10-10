@@ -14,6 +14,7 @@ public class Date implements Comparable<Date> {
     private int year;
     private int month;
     private int day;
+    private boolean dateCleared = false;
 
 
     /**
@@ -24,7 +25,7 @@ public class Date implements Comparable<Date> {
     public Date(String date) {
         StringTokenizer inputDate = new StringTokenizer(date);
         this.month = Integer.parseInt(inputDate.nextToken("/"));
-        this.day = Integer.parseInt(inputDate.nextToken("/"));  //******can i do this? is this right?
+        this.day = Integer.parseInt(inputDate.nextToken("/"));
         this.year = Integer.parseInt(inputDate.nextToken("/"));
     }
 
@@ -122,10 +123,20 @@ public class Date implements Comparable<Date> {
     /**
      * Gets date.
      *
-     * @return date in mm/dd/yyyy format
+     * @return date in mm/dd/yyyy format and returns --/--/-- if the date has been cleared for
+     * international students
      */
     public String getDate() {
-        return month + "/" + day + "/" + year;
+        if (dateCleared == true){
+            return "--/--/--";
+        }
+        else{
+            return month + "/" + day + "/" + year;
+        }
+    }
+
+    public void setDateCleared(boolean bool){
+        this.dateCleared = bool;
     }
 
 }
