@@ -87,7 +87,7 @@ public class TuitionManager {
             }
 
             else if (input.equals("T")) { // pay tuition
-
+                String name =
             }
         }
     }
