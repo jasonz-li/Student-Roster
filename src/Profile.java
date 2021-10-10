@@ -1,6 +1,4 @@
 public class Profile {
-
-    //John
     private String name;
     private Major major; //5 majors and 2-characters each: CS, IT, BA, EE, ME
 

@@ -51,7 +51,7 @@ public class TuitionManager {
         else {
             String name = command.nextToken();
             String major = command.nextToken();
-            if (input.equals("R")) { // remove me
+            if (input.equals("R")) {
                 Student target = roster.findStudent(name, major);
                 if (target != null) {
                     roster.remove(target);
@@ -62,14 +62,16 @@ public class TuitionManager {
             } else if (input.equals("S")) { // set abroad status me
                 if (command.hasMoreTokens() == false) {
                     System.out.println("Missing data in command line.");
-                } else {
+                }
+                else {
                     if (roster.findStudent(name, major) != null) {
                         International.class.cast(roster.findStudent(name, major)).studyingAbroad = true;
                         if (International.class.cast(roster.findStudent(name, major)).getCreditHours() > 12) {
                             roster.findStudent(name, major).setCreditHours(0);
                             System.out.println("Tuition updated.");
                         }
-                    } else {
+                    }
+                    else {
                         System.out.println("Couldn't find international student.");
                     }
                 }
