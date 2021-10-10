@@ -68,6 +68,8 @@ public class TuitionManager {
                         International.class.cast(roster.findStudent(name, major)).studyingAbroad = true;
                         if (International.class.cast(roster.findStudent(name, major)).getCreditHours() > 12) {
                             roster.findStudent(name, major).setCreditHours(0);
+                            roster.findStudent(name, major).getDate().setDateCleared(true);
+                            roster.findStudent(name, major).tuitionDue();
                             System.out.println("Tuition updated.");
                         }
                     }

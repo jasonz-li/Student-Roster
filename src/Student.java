@@ -62,4 +62,6 @@ public class Student {
 
     public Date getDate() {return this.date;}
 
+    public void setDate(Date date){this.date = date;}
+
 }
