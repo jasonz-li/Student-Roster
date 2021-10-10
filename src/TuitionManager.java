@@ -65,8 +65,10 @@ public class TuitionManager {
                 }
                 else {
                     if (roster.findStudent(name, major) != null) {
-                        International.class.cast(roster.findStudent(name, major)).studyingAbroad = true;
-                        if (International.class.cast(roster.findStudent(name, major)).getCreditHours() > 12) {
+                        boolean bool = Boolean.parseBoolean(command.nextToken());
+                        International.class.cast(roster.findStudent(name, major)).studyingAbroad = bool;
+                        if (International.class.cast(roster.findStudent(name, major)).getCreditHours() > 12
+                            && International.class.cast(roster.findStudent(name, major)).studyingAbroad == true) {
                             roster.findStudent(name, major).setCreditHours(0);
                             roster.findStudent(name, major).getDate().setDateCleared(true);
                             roster.findStudent(name, major).tuitionDue();
