@@ -1,3 +1,4 @@
+import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.Scanner;
 
@@ -21,14 +22,16 @@ public class TuitionManager {
 
                 } else if (input.equals("R") || input.equals("S") || input.equals("F") || input.equals("T")) {
                     handleRSFT(input, command, roster);
-                } else if (input.equals("C")){
+                }
+                else if (input.equals("C")){
                     calculate(roster);
-                }else{
+                }
+                else{
                     System.out.println("Command '" + input + "' not supported!");
                 }
             }
             else{
-                ; // do nothing if no input
+                // do nothing if no input
             }
         }
         scanner.close();
@@ -93,8 +96,12 @@ public class TuitionManager {
                             boolean studyAbroad = Boolean.parseBoolean(command.nextToken());
                             International international = new International(name, major, creditHours, studyAbroad);
                             if(!checkRosterDuplicate(international, roster)) {
-                                roster.add(international);
-                                System.out.println("Student added.");
+                                if (creditHours < 12){
+                                    System.out.println("International students must enroll at least 12 credits.");
+                                }else{
+                                    roster.add(international);
+                                    System.out.println("Student added.");
+                                }
                             }
                         }
                     } catch(NumberFormatException e){
@@ -112,7 +119,8 @@ public class TuitionManager {
         }
 
     }
-    private boolean checkMajor(String major) {
+
+    private Boolean checkMajor(String major) {
         if (major.equals("CS") || major.equals("IT")  ||
                 major.equals("BA") || major.equals("EE") || major.equals("ME")) {
             return true;
@@ -122,82 +130,103 @@ public class TuitionManager {
         }
     }
 
-    private boolean checkRosterDuplicate(Student student, Roster roster){
-        for (int i = 0; i < roster.getSize(); i++){
-            if(roster.getRoster()[i].equals(student)){
-                System.out.println("Student is already in the roster.");
-                return true;
-            };
-        }
-        return false;
-    }
-
     private void handleRSFT(String input, StringTokenizer command, Roster roster){
-        if (command.hasMoreTokens() == false){
+        if (!command.hasMoreTokens()){
             System.out.println("Missing data in command line.");
         }
         else {
             String name = command.nextToken();
-            String major = command.nextToken();
+            String major = command.nextToken().toUpperCase();
             if (input.equals("R")) {
                 Student target = roster.findStudent(name, major);
                 if (target != null) {
-                    if (roster.remove(target)){
-                        System.out.println("Student removed from the roster.");
-                    }else{
-                        System.out.println("Student is not in the roster.");
-                    }
+                    roster.remove(target);
+                    System.out.println("Student removed from the roster.");
                 } else {
                     System.out.println("Student is not in the roster.");
                 }
             } else if (input.equals("S")) { // set abroad status me
-                if (command.hasMoreTokens() == false) {
+                if (!command.hasMoreTokens()) {
                     System.out.println("Missing data in command line.");
                 }
                 else {
                     if (roster.findStudent(name, major) != null) {
-                        boolean bool = Boolean.parseBoolean(command.nextToken());
-                        International.class.cast(roster.findStudent(name, major)).studyingAbroad = bool;
-                        if (International.class.cast(roster.findStudent(name, major)).getCreditHours() > 12
-                                && International.class.cast(roster.findStudent(name, major)).studyingAbroad == true) {
-                            roster.findStudent(name, major).setCreditHours(0);
-                            roster.findStudent(name, major).getDate().setDateCleared(true);
-                            roster.findStudent(name, major).tuitionDue();
-                            System.out.println("Tuition updated.");
+                        if (roster.findStudent(name, major).getClass().toString().equals(International.class.toString())){
+                            boolean bool = Boolean.parseBoolean(command.nextToken());
+                            International.class.cast(roster.findStudent(name, major)).studyingAbroad = bool;
+                            if (International.class.cast(roster.findStudent(name, major)).getCreditHours() > 12
+                                    && International.class.cast(roster.findStudent(name, major)).studyingAbroad) {
+                                roster.findStudent(name, major).setCreditHours(12);
+                                if (roster.findStudent(name, major).getDate() == null){
+                                    roster.findStudent(name, major).tuitionDue();
+                                    System.out.println("Tuition updated.");
+                                }
+                                else{
+                                    roster.findStudent(name, major).getDate().setDateCleared(true);
+                                    roster.findStudent(name, major).tuitionDue();
+                                    System.out.println("Tuition updated.");
+                                }
+                            }
+                            else{
+                                roster.findStudent(name, major).getDate().setDateCleared(true);
+                                roster.findStudent(name, major).tuitionDue();
+                                System.out.println("Tuition updated.");
+                            }
                         }
+                        else {
+                            System.out.println("Couldn't find international student.");
+                        }
+
                     }
                     else {
                         System.out.println("Couldn't find international student.");
                     }
                 }
+
             }
+
             else if (input.equals("F")) { // set financial aid
                 handleF(name, major, command, roster);
             }
+
             else if (input.equals("T")) { // pay tuition
                 if (!command.hasMoreTokens()) {
                     System.out.println("Payment amount missing.");
                 }
                 else{
-                    double payment = Integer.parseInt(command.nextToken());
-                    Date date = new Date(command.nextToken());
-                    boolean paid = roster.findStudent(name, major).payTuition(payment, date);
+                    double payment = Double.parseDouble(command.nextToken());
                     if (payment <= 0){
                         System.out.println("Invalid amount.");
                     }
-                    else if (!date.isValid()){
-                        System.out.println("Payment date invalid.");
-                    }
-                    else if (!paid){
-                        System.out.println("Payment applied.");
-                    }
                     else{
-                        System.out.println("Amount is greater than amount due.");
+                        Date date = new Date(command.nextToken());
+                        boolean paid = roster.findStudent(name, major).payTuition(payment, date);
+                        if (!date.isValid()){
+                            System.out.println("Payment date invalid.");
+                        }
+                        else if (paid){
+                            System.out.println("Payment applied.");
+                            System.out.println();
+                        }
+                        else{
+                            System.out.println("Amount is greater than amount due.");
+                        }
                     }
+
                 }
+
+
             }
         }
     }
+
+    private void calculate(Roster roster){ // ???????????
+        for (int i = 0; i < roster.getSize(); i++){
+            roster.getRoster()[i].tuitionDue();
+        }
+        System.out.println("Calculation completed.");
+    }
+
 
     public void handleF(String name, String major, StringTokenizer command, Roster roster) {
         if(command.hasMoreTokens()) {
@@ -223,20 +252,24 @@ public class TuitionManager {
                     } else {
                         System.out.println("Not a resident student.");
                     }
-                }else{
-                    System.out.println("Student is not in the roster.");
+                }
+                else{
+                    System.out.println("Parttime student doesn't qualify for the award.");
                 }
             }
         }else{
             System.out.println("Missing the amount.");
         }
     }
-
-    private void calculate(Roster roster){ // ???????????
+    private boolean checkRosterDuplicate(Student student, Roster roster){
         for (int i = 0; i < roster.getSize(); i++){
-            roster.getRoster()[i].tuitionDue();
+            if(roster.getRoster()[i].getProfile().getName().equals(student.getProfile().getName())
+                    && roster.getRoster()[i].getProfile().getMajor().equals(student.getProfile().getMajor())){
+                System.out.println("Student is already in the roster.");
+                return true;
+            };
         }
-        System.out.println("Calculation completed.");
+        return false;
     }
-}
 
+}

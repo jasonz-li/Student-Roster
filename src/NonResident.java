@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.text.DecimalFormat;
 
 public class NonResident extends Student{
@@ -30,22 +31,20 @@ public class NonResident extends Student{
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof NonResident){
-            NonResident input = NonResident.class.cast(obj);
-            if (input.fullTime == this.fullTime && this.getProfile().getName().equals(input.getProfile().getName())
-                    && this.getProfile().getMajor().equals(input.getProfile().getMajor())){
-                return true;
-            }
-            else{
-                return false;
-            }
-        } return false;
+        NonResident input = NonResident.class.cast(obj);
+        if (input.fullTime == this.fullTime && this.getProfile().getName().equals(input.getProfile().getName())
+                && this.getProfile().getMajor().equals(input.getProfile().getMajor())){
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 
-    //Rob Harrison:BA:12 credit hours:tuition due:0.00:total payment:0.00:last payment date: --/--/--:non-resident
     @Override
     public String toString() {
-        String pattern = "####,####.##";
+        String pattern = "###,###.##";
         DecimalFormat numberFormat = new DecimalFormat(pattern);
         Date studentDateCheck = super.getDate(); // gets the student date
         String dateString = "";
@@ -58,7 +57,7 @@ public class NonResident extends Student{
                 + " credit hours:" + "tuition due:" + numberFormat.format(this.getTotalCost()) + ":" +
                 "total payment:" + numberFormat.format(this.getTotalPayment()) + ":" + "last payment date: "
                 + dateString + ":" + "non-resident";
-
+        System.out.println("**COST!:" + this.getTotalCost());
         return string;
     }
 
