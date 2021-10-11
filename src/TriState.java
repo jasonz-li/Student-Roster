@@ -19,7 +19,7 @@ public class TriState extends NonResident{
         double fee = 3268;
         double NYDiscount = 4000;
         double CTDiscount = 5000;
-        if (livesInCT == true){ // CT discount
+        if (livesInCT){ // CT discount
             if (this.getCreditHours() > 16){
                 tuition += fee - CTDiscount + 966 * this.getCreditHours();
             }

@@ -10,7 +10,7 @@ public class International extends NonResident{
         double tuition = 29737;
         double fee = 3268;
         double extraFee = 2650;
-        if (studyingAbroad == true){ // student is studying abroad
+        if (studyingAbroad){ // student is studying abroad
             tuition = fee + 2650;
         }
         else{ // full-time tuition regular
@@ -40,8 +40,7 @@ public class International extends NonResident{
 
     @Override
     public String toString() {
-        String string = this.getProfile().toString() + ", " + this.getCreditHours();
-        return string;
+        return this.getProfile().toString() + ", " + this.getCreditHours();
     }
 
 

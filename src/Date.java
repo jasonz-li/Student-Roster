@@ -127,7 +127,7 @@ public class Date implements Comparable<Date> {
      * international students
      */
     public String getDate() {
-        if (dateCleared == true){
+        if (dateCleared){
             return "--/--/--";
         }
         else{
