@@ -35,12 +35,16 @@ public class TuitionManager {
     }
 
     private void handlePrint(String input, Roster roster){
-        if(input.equals("P")){
-            roster.print();
-        }else if(input.equals("PN")){
-            roster.printByName();
-        }else if(input.equals("PT")){
-            roster.printByPaymentDate();
+        if(roster.getSize() == 0){
+            System.out.println("Student roster is empty!");
+        }else {
+            if (input.equals("P")) {
+                roster.print();
+            } else if (input.equals("PN")) {
+                roster.printByName();
+            } else if (input.equals("PT")) {
+                roster.printByPaymentDate();
+            }
         }
     }
 
