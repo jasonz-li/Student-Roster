@@ -44,7 +44,7 @@ public class Resident extends Student {
 
     @Override
     public String toString() {  //John Doe:EE:18 credit hours:tuition due:0.00:total payment:0.00:last payment date: --/--/--:resident
-        String pattern = "###,###.##";
+        String pattern = "###,##0.00";
         DecimalFormat numberFormat = new DecimalFormat(pattern);
         Date studentDateCheck = super.getDate(); // gets the student date
         String dateString = "";

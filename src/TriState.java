@@ -59,7 +59,7 @@ public class TriState extends NonResident{
 
     @Override
     public String toString() {  //John Doe:IT:18 credit hours:tuition due:30,937.00:total payment:0.00:last payment date: --/--/--:non-resident(tri-state):NY
-        String pattern = "###,###.##";
+        String pattern = "###,##0.00";
         DecimalFormat numberFormat = new DecimalFormat(pattern);
         Date studentDateCheck = super.getDate(); // gets the student date
         String dateString = "";
@@ -75,7 +75,7 @@ public class TriState extends NonResident{
         String string = this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getCreditHours()
                 + " credit hours:" + "tuition due:" + numberFormat.format(this.getTotalCost()) + ":" +
                 "total payment:" + numberFormat.format(this.getTotalPayment()) + ":" + "last payment date: "
-                + dateString + ":" + "non-resident(tri-state) " + CTorNY;
+                + dateString + ":" + "non-resident(tri-state):" + CTorNY;
         System.out.println("**COST!:" + this.getTotalCost());
 
         return string;

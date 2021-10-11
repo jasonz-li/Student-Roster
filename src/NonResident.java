@@ -44,7 +44,7 @@ public class NonResident extends Student{
 
     @Override
     public String toString() {
-        String pattern = "###,###.##";
+        String pattern = "###,##0.00";
         DecimalFormat numberFormat = new DecimalFormat(pattern);
         Date studentDateCheck = super.getDate(); // gets the student date
         String dateString = "";

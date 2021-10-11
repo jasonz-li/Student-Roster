@@ -42,7 +42,7 @@ public class International extends NonResident{
 
     @Override
     public String toString() {  //Joshua Patel:CS:12 credit hours:tuition due:5,918.00:total payment:0.00:last payment date: --/--/--:non-resident:international:study abroad
-        String pattern = "###,###.##";
+        String pattern = "###,##0.00";
         DecimalFormat numberFormat = new DecimalFormat(pattern);
         Date studentDateCheck = super.getDate(); // gets the student date
         String dateString = "";
