@@ -1,8 +1,11 @@
+import java.text.DecimalFormat;
+
 public class Student {
     private Profile profile;
     private int creditHours;
     private double totalCost = 0;
-    private Date date = null;
+    private double totalPayment = 0;
+    private Date date;
 
     //Constructors
     public Student(){
@@ -18,21 +21,35 @@ public class Student {
     }
 
     public boolean payTuition(double payment, Date date){
-
-        if(this.totalCost > payment){
-            this.date = date;
-            this.totalCost = this.totalCost - payment;
-            return true;
+        if(payment <= 0){
+            System.out.println("Invalid amount.");
+            return false;
         }else{
-            return false; //total cost is < than payment
+            if(payment <= this.totalCost){
+                this.totalPayment = this.totalPayment + payment;
+                this.date = date;
+                this.totalCost = this.totalCost - payment;
+                return true;
+            }else{                  //payment > cost
+                return false;
+            }
         }
     }
 
-    //to string and maybe equals
 
     @Override
-    public String toString() {
-        String string = this.profile.toString() + ", " + this.creditHours;
+    public String toString() {  //John Doe:EE:18 credit hours:tuition due:0.00:total payment:0.00:last payment date: --/--/--:resident
+        String pattern = "####,####.##";
+        DecimalFormat numberFormat = new DecimalFormat(pattern);
+        String dateString = date.getDate();
+        if(this.date == null){
+           dateString = "--/--/--";
+        }
+        String string = this.profile.getName() + ":" + this.profile.getMajor() + ":" + this.creditHours
+                + " credit hours:" + "tuition due:" + numberFormat.format(this.totalCost) + ":" +
+                "total payment:" + numberFormat.format(this.totalPayment) + ":" + "last payment date: "
+                + dateString + ":" + "resident";
+
         return string;
     }
 
@@ -43,7 +60,7 @@ public class Student {
         }
         if(o instanceof Student){
             Student newStudent = (Student) o;
-            if(this.profile.equals(newStudent.profile) && this.creditHours == newStudent.creditHours){
+            if(this.profile.equals(newStudent.profile)){
                 return true;
             }
         }
@@ -64,4 +81,7 @@ public class Student {
 
     public void setDate(Date date){this.date = date;}
 
+    public double getTotalPayment() {return this.totalPayment;}
+
+    public void setTotalPayment(double payment) {this.totalPayment = payment;}
 }

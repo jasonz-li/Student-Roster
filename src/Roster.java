@@ -7,10 +7,9 @@ public class Roster {
         size = 0;
     }
 
-    private int find(String name, String major){
+    private int find(Student student){
         for (int i = 0; i < this.size; i++) {
-            if (this.roster[i].getProfile().getName().equals(name)
-            && this.roster[i].getProfile().getMajor().equals(major)) {
+            if (this.roster[i].equals(student)) {
                 return i;
             }
         }
@@ -42,60 +41,87 @@ public class Roster {
     }
 
     public boolean remove(Student student){
-        Student[] temp = new Student[size];
+        Student[] temp = new Student[roster.length];
         int j = 0;
         boolean check = false;
         for (int i = 0; i < size; i++){
-            if (check == false && student.equals(roster[i])) {    // if the removed student == roster student, skip them
-                if(++j < roster.length){  // if the next j is in bounds, continue
+            if (check == false && student.getClass().equals(roster[i].getClass())
+            && student.getProfile().getName().equals(roster[i].getProfile().getName())
+            && student.getProfile().getMajor().equals(roster[i].getProfile().getMajor())) {    // if the removed student == roster student, skip them
+                if (j <= size){  // if the next j is in bounds, continue
                     check = true;
                     j++;
                     temp[i] = roster[j];
-                }
-            }else{
-                if(j < roster.length){   // if j is in bounds, set temp array.
-                    temp[i] = roster[j];
-                    ++j;
+                    j++;
+                    continue;
                 }
             }
+            else{
+                temp[i] = roster[j];
+            }
+            j++;
         }
-        roster = temp;
-        this.size--;
-        return true;
+        if(check == false){
+            return false;
+        }
+        else{
+            roster = temp;
+            this.size--;
+            return true;
+        }
+
     }
 
     private void printCurrentOrder(){
         for(int i = 0; i < this.roster.length; i++){
             if(roster[i] != null){
-                System.out.println(roster[i].toString());
+                if(roster[i] instanceof Resident){
+                    Resident student = (Resident) roster[i];
+                    System.out.println(student.toString());
+                }
+                else if(roster[i] instanceof TriState){
+                    TriState student = (TriState) roster[i];
+                    System.out.println(student.toString());
+                }
+                else if(roster[i] instanceof International){
+                    International student = (International) roster[i];
+                    System.out.println(student.toString());
+                }
+                else if(roster[i] instanceof NonResident){
+                    NonResident student = (NonResident) roster[i];
+                    System.out.println(student.toString());
+                }
             }
         }
     }
 
     public void print() {
-        System.out.println("");
+        System.out.println("* list of students in the roster **");
         this.printCurrentOrder();
-        System.out.println("*End of List");
+        System.out.println("* end of roster **");
     }
 
     public void printByPaymentDate() {
         int albumsLength = this.size;
-
+        System.out.println("albumsLength: " + albumsLength);
         for (int i = 0; i < albumsLength-1; i++)
         {
             int min_idx = i;
             for (int j = i + 1; j < albumsLength; j++)
-                if (roster[min_idx].getDate().compareTo(roster[j].getDate()) == 1){
-                    min_idx = j;
+                if (roster[min_idx].getDate() != null && roster[j].getDate() != null){
+                    if (roster[min_idx].getDate().compareTo(roster[j].getDate()) == 1){
+                        min_idx = j;
+                    }
                 }
+
 
             Student tempVar = roster[min_idx];
             roster[min_idx] = roster[i];
             roster[i] = tempVar;
         }
-        System.out.println("");
+        System.out.println("* list of students made payments ordered by payment date **");
         this.printCurrentOrder();
-        System.out.println("*End of List");
+        System.out.println("* end of roster **");
     }
 
     public void printByName() {
@@ -113,16 +139,15 @@ public class Roster {
             roster[min_idx] = roster[i];
             roster[i] = tempVar;
         }
-        System.out.println("*Album collection by genre.");
+        System.out.println("* list of students ordered by name **");
         this.printCurrentOrder();
-        System.out.println("*End of List");
+        System.out.println("* end of roster **");
     }
-
 
     public Student findStudent(String name, String major) {
         for (int i = 0; i < size; i++) {
             if (roster[i] != null) {
-                if (roster[i].getProfile().getName().equals(name) && roster[i].getProfile().getMajor().toString().equals(major)) {
+                if (roster[i].getProfile().getName().equals(name) && roster[i].getProfile().getMajor().equals(major)) {
                     return roster[i];
                 }
             }

@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 public class TriState extends NonResident{
     boolean livesInCT;
     boolean livesInNY;
@@ -52,8 +54,25 @@ public class TriState extends NonResident{
 
 
     @Override
-    public String toString() {
-        String string = this.getProfile().toString() + ", " + this.getCreditHours();
+    public String toString() {  //John Doe:IT:18 credit hours:tuition due:30,937.00:total payment:0.00:last payment date: --/--/--:non-resident(tri-state):NY
+        String pattern = "####,####.##";
+        DecimalFormat numberFormat = new DecimalFormat(pattern);
+        Date studentDateCheck = super.getDate(); // gets the student date
+        String dateString = "";
+        if(studentDateCheck == null){
+            dateString = "--/--/--";
+        }else{
+            dateString = this.getDate().getDate();
+        }
+        String CTorNY = "NY";
+        if (livesInCT) {
+            CTorNY = "CT";
+        }
+        String string = this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getCreditHours()
+                + " credit hours:" + "tuition due:" + numberFormat.format(this.getTotalCost()) + ":" +
+                "total payment:" + numberFormat.format(this.getTotalPayment()) + ":" + "last payment date: "
+                + dateString + ":" + "non-resident(tri-state) " + CTorNY;
+
         return string;
     }
 
