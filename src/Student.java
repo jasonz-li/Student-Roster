@@ -62,7 +62,7 @@ public class Student {
         }
         if(o instanceof Student){
             Student newStudent = (Student) o;
-            if(this.profile.equals(newStudent.profile) && this.creditHours == newStudent.creditHours){
+            if(this.profile.equals(newStudent.profile)){
                 return true;
             }
         }

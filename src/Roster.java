@@ -41,12 +41,12 @@ public class Roster {
     }
 
     public boolean remove(Student student){
-        Student[] temp = new Student[size];
+        Student[] temp = new Student[roster.length];
         int j = 0;
         boolean check = false;
         for (int i = 0; i < size; i++){
             if (check == false && student.equals(roster[i])) {    // if the removed student == roster student, skip them
-                if(++j < roster.length){  // if the next j is in bounds, continue
+                if(++j <= this.size){  // if the next j is in bounds, continue
                     check = true;
                     j++;
                     temp[i] = roster[j];
@@ -60,6 +60,9 @@ public class Roster {
         }
         roster = temp;
         this.size--;
+        if(check == false){
+            return false;
+        }
         return true;
     }
 

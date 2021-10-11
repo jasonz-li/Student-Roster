@@ -10,7 +10,7 @@ public class TriState extends NonResident{
             this.livesInCT = false;
             this.livesInNY = true;
         }
-        else{
+        else if (state.toUpperCase().equals("CT")){
             this.livesInCT = true;
             this.livesInNY = false;
         }
@@ -42,14 +42,17 @@ public class TriState extends NonResident{
 
     @Override
     public boolean equals(Object obj) {
-        TriState input = TriState.class.cast(obj);
-        if (input.livesInNY == this.livesInNY && input.livesInCT == this.livesInCT && this.getProfile().getName().equals(input.getProfile().getName())
-                && this.getProfile().getMajor().equals(input.getProfile().getMajor())){
-            return true;
-        }
-        else{
-            return false;
-        }
+        if(obj instanceof TriState){
+            TriState input = TriState.class.cast(obj);
+            if (input.livesInNY == this.livesInNY && input.livesInCT == this.livesInCT && this.getProfile().getName().equals(input.getProfile().getName())
+                    && this.getProfile().getMajor().equals(input.getProfile().getMajor())){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }return false;
+
     }
 
 
@@ -57,9 +60,12 @@ public class TriState extends NonResident{
     public String toString() {  //John Doe:IT:18 credit hours:tuition due:30,937.00:total payment:0.00:last payment date: --/--/--:non-resident(tri-state):NY
         String pattern = "####,####.##";
         DecimalFormat numberFormat = new DecimalFormat(pattern);
-        String dateString = super.getDate().getDate(); // gets the student date and calls the Date file getDate()
-        if(this.getDate() == null){
+        Date studentDateCheck = super.getDate(); // gets the student date
+        String dateString = "";
+        if(studentDateCheck == null){
             dateString = "--/--/--";
+        }else{
+            dateString = this.getDate().getDate();
         }
         String CTorNY = "NY";
         if (livesInCT == true) {

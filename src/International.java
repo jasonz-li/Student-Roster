@@ -28,15 +28,17 @@ public class International extends NonResident{
 
     @Override
     public boolean equals(Object obj) {
-        International input = International.class.cast(obj);
-        if (input.studyingAbroad == this.studyingAbroad
-                && this.getProfile().getName().equals(input.getProfile().getName())
-                && this.getProfile().getMajor().equals(input.getProfile().getMajor())){
-            return true;
-        }
-        else{
-            return false;
-        }
+        if(obj instanceof International){
+            International input = International.class.cast(obj);
+            if (input.studyingAbroad == this.studyingAbroad
+                    && this.getProfile().getName().equals(input.getProfile().getName())
+                    && this.getProfile().getMajor().equals(input.getProfile().getMajor())){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }return false;
     }
 
 
@@ -44,9 +46,12 @@ public class International extends NonResident{
     public String toString() {  //Joshua Patel:CS:12 credit hours:tuition due:5,918.00:total payment:0.00:last payment date: --/--/--:non-resident:international:study abroad
         String pattern = "####,####.##";
         DecimalFormat numberFormat = new DecimalFormat(pattern);
-        String dateString = super.getDate().getDate(); // gets the student date and calls the Date file getDate()
-        if(this.getDate() == null){
+        Date studentDateCheck = super.getDate(); // gets the student date
+        String dateString = "";
+        if(studentDateCheck == null){
             dateString = "--/--/--";
+        }else{
+            dateString = this.getDate().getDate();
         }
         String studyAbroad = "";
         if (this.studyingAbroad == true) {

@@ -21,11 +21,11 @@ public class TuitionManager {
 
                 } else if (input.equals("R") || input.equals("S") || input.equals("F") || input.equals("T")) {
                     handleRSFT(input, command, roster);
-                }
-                else if (input.equals("C")){
+                } else if (input.equals("C")){
                     calculate(roster);
+                }else{
+                    System.out.println("Command '" + input + "' not supported!");
                 }
-                System.out.println("Command '" + input + "' not supported!");
             }
             else{
                 ; // do nothing if no input
@@ -49,38 +49,70 @@ public class TuitionManager {
     }
 
     private void handleAdd(String input, StringTokenizer command, Roster roster){
-        if(command.hasMoreTokens() && command.hasMoreTokens() && command.hasMoreTokens()){
-        }else{System.out.println("Missing data in command line.");return;}
-        String name = command.nextToken();
-        String major = command.nextToken();
-        int creditHours = Integer.parseInt(command.nextToken());
-        String majorUpperCase = major.toUpperCase();
-
-        if (creditHours < 3){System.out.println("Minimum credit hours is 3.");return;}
-        if (creditHours > 24){System.out.println("Credit hours exceed the maximum 24.");return;}
-        if(checkMajor(majorUpperCase) == false){System.out.println("'" + major + "'" + " is not a valid major."); return;};
-
-        if(input.equals("AR")){
-            Resident resident = new Resident(name, major, creditHours);
-            roster.add(resident);
-        }else if(input.equals("AN")){
-            NonResident nonresident = new NonResident(name, major, creditHours);
-            roster.add(nonresident);
-        }else if(input.equals("AT")){
+        if(command.hasMoreTokens()){
+            String name = command.nextToken();
             if(command.hasMoreTokens()){
-            }else{System.out.println("Missing data in command line.");return;}
-            String state = command.nextToken();
-            TriState tristate = new TriState(name, major, creditHours, state);
-            roster.add(tristate);
-        }else if(input.equals("AI")){
-            if(command.hasMoreTokens()){
-            }else{System.out.println("Missing data in command line.");return;}
-            Boolean studyAbroad = Boolean.parseBoolean(command.nextToken());
-            International international = new International(name, major, creditHours, studyAbroad);
-            roster.add(international);
+                String major = command.nextToken();
+                String majorUpperCase = major.toUpperCase();
+                if(command.hasMoreTokens()){
+                    try{
+                        int creditHours = Integer.parseInt(command.nextToken());
+                        if(checkMajor(majorUpperCase) == false){System.out.println("'" + major + "'" + " is not a valid major."); return;};
+                        if (creditHours < 0){System.out.println("Credit hours cannot be negative.");return;}
+                        if (creditHours < 3){System.out.println("Minimum credit hours is 3.");return;}
+                        if (creditHours > 24){System.out.println("Credit hours exceed the maximum 24.");return;}
+
+                        if(input.equals("AR")){
+                            Resident resident = new Resident(name, major, creditHours);
+                            if(!checkRosterDuplicate(resident, roster)){
+                                roster.add(resident);
+                                System.out.println("Student added.");
+                            }
+                        }else if(input.equals("AN")){
+                            NonResident nonresident = new NonResident(name, major, creditHours);
+                            if(!checkRosterDuplicate(nonresident, roster)) {
+                                roster.add(nonresident);
+                                System.out.println("Student added.");
+                            }
+                        }else if(input.equals("AT")){
+                            if(command.hasMoreTokens()){
+                            }else{System.out.println("Missing data in command line.");return;}
+                            String state = command.nextToken();
+                            if(!state.toUpperCase().equals("NY") && !state.toUpperCase().equals("CT")){
+                                System.out.println("Not part of the tri-state area.");
+                            }else{
+                                TriState tristate = new TriState(name, major, creditHours, state);
+                                if(!checkRosterDuplicate(tristate, roster)) {
+                                    roster.add(tristate);
+                                    System.out.println("Student added.");
+                                }
+                            }
+                        }else if(input.equals("AI")){
+                            if(command.hasMoreTokens()){
+                            }else{System.out.println("Missing data in command line.");return;}
+                            boolean studyAbroad = Boolean.parseBoolean(command.nextToken());
+                            International international = new International(name, major, creditHours, studyAbroad);
+                            if(!checkRosterDuplicate(international, roster)) {
+                                roster.add(international);
+                                System.out.println("Student added.");
+                            }
+                        }
+                    } catch(NumberFormatException e){
+                        System.out.println("Invalid credit hours.");
+                        return;
+                    }
+                }else{
+                    System.out.println("Credit hours missing.");return;
+                }
+            }else{
+                System.out.println("Missing data in command line.");return;
+            }
+        }else{
+            System.out.println("Missing data in command line.");return;
         }
+
     }
-    private Boolean checkMajor(String major) {
+    private boolean checkMajor(String major) {
         if (major.equals("CS") || major.equals("IT")  ||
                 major.equals("BA") || major.equals("EE") || major.equals("ME")) {
             return true;
@@ -88,6 +120,16 @@ public class TuitionManager {
         else {
             return false;
         }
+    }
+
+    private boolean checkRosterDuplicate(Student student, Roster roster){
+        for (int i = 0; i < roster.getSize(); i++){
+            if(roster.getRoster()[i].equals(student)){
+                System.out.println("Student is already in the roster.");
+                return true;
+            };
+        }
+        return false;
     }
 
     private void handleRSFT(String input, StringTokenizer command, Roster roster){
@@ -100,10 +142,13 @@ public class TuitionManager {
             if (input.equals("R")) {
                 Student target = roster.findStudent(name, major);
                 if (target != null) {
-                    roster.remove(target);
-                    System.out.println("Student removed from the roster.");
+                    if (roster.remove(target)){
+                        System.out.println("Student removed from the roster.");
+                    }else{
+                        System.out.println("Student is not in the roster.");
+                    }
                 } else {
-                    System.out.println("Student not in the roster.");
+                    System.out.println("Student is not in the roster.");
                 }
             } else if (input.equals("S")) { // set abroad status me
                 if (command.hasMoreTokens() == false) {
@@ -125,13 +170,10 @@ public class TuitionManager {
                         System.out.println("Couldn't find international student.");
                     }
                 }
-
             }
-
             else if (input.equals("F")) { // set financial aid
                 handleF(name, major, command, roster);
             }
-
             else if (input.equals("T")) { // pay tuition
                 if (!command.hasMoreTokens()) {
                     System.out.println("Payment amount missing.");
@@ -162,7 +204,7 @@ public class TuitionManager {
             Double financialAidInput = Double.parseDouble(command.nextToken());
             Student student = roster.findStudent(name, major);
             if(student == null){                                // student not in roster
-                System.out.println("Student not in the roster.");
+                System.out.println("Student is not in the roster.");
             }else{                                // in the roster
                 if(student.getCreditHours() >= 12) {
                     if (student instanceof Resident) {
@@ -182,7 +224,7 @@ public class TuitionManager {
                         System.out.println("Not a resident student.");
                     }
                 }else{
-                    System.out.println("Student not in the roster.");
+                    System.out.println("Student is not in the roster.");
                 }
             }
         }else{

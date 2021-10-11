@@ -30,15 +30,16 @@ public class NonResident extends Student{
 
     @Override
     public boolean equals(Object obj) {
-        NonResident input = NonResident.class.cast(obj);
-        if (input.fullTime == this.fullTime && this.getProfile().getName().equals(input.getProfile().getName())
-                && this.getProfile().getMajor().equals(input.getProfile().getMajor())){
-            return true;
-        }
-        else{
-            return false;
-        }
-
+        if(obj instanceof NonResident){
+            NonResident input = NonResident.class.cast(obj);
+            if (input.fullTime == this.fullTime && this.getProfile().getName().equals(input.getProfile().getName())
+                    && this.getProfile().getMajor().equals(input.getProfile().getMajor())){
+                return true;
+            }
+            else{
+                return false;
+            }
+        } return false;
     }
 
     //Rob Harrison:BA:12 credit hours:tuition due:0.00:total payment:0.00:last payment date: --/--/--:non-resident
@@ -46,11 +47,13 @@ public class NonResident extends Student{
     public String toString() {
         String pattern = "####,####.##";
         DecimalFormat numberFormat = new DecimalFormat(pattern);
-        String dateString = super.getDate().getDate(); // gets the student date and calls the Date file getDate()
-        if(this.getDate() == null){
+        Date studentDateCheck = super.getDate(); // gets the student date
+        String dateString = "";
+        if(studentDateCheck == null){
             dateString = "--/--/--";
+        }else{
+            dateString = this.getDate().getDate();
         }
-
         String string = this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getCreditHours()
                 + " credit hours:" + "tuition due:" + numberFormat.format(this.getTotalCost()) + ":" +
                 "total payment:" + numberFormat.format(this.getTotalPayment()) + ":" + "last payment date: "
