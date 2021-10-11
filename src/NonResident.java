@@ -44,7 +44,7 @@ public class NonResident extends Student{
 
     @Override
     public String toString() {
-        String pattern = "####,####.##";
+        String pattern = "###,##0.00";
         DecimalFormat numberFormat = new DecimalFormat(pattern);
         Date studentDateCheck = super.getDate(); // gets the student date
         String dateString = "";
@@ -57,7 +57,6 @@ public class NonResident extends Student{
                 + " credit hours:" + "tuition due:" + numberFormat.format(this.getTotalCost()) + ":" +
                 "total payment:" + numberFormat.format(this.getTotalPayment()) + ":" + "last payment date: "
                 + dateString + ":" + "non-resident";
-
         return string;
     }
 

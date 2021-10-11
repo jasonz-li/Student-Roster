@@ -143,7 +143,7 @@ public class TuitionManager {
                     roster.remove(target);
                     System.out.println("Student removed from the roster.");
                 } else {
-                    System.out.println("Student not in the roster.");
+                    System.out.println("Student is not in the roster.");
                 }
             } else if (input.equals("S")) { // set abroad status me
                 if (!command.hasMoreTokens()) {
@@ -206,6 +206,7 @@ public class TuitionManager {
                         }
                         else if (paid){
                             System.out.println("Payment applied.");
+                            System.out.println();
                         }
                         else{
                             System.out.println("Amount is greater than amount due.");
@@ -219,10 +220,11 @@ public class TuitionManager {
         }
     }
 
-
     private void calculate(Roster roster){ // ???????????
         for (int i = 0; i < roster.getSize(); i++){
-            roster.getRoster()[i].tuitionDue();
+            if (roster.getRoster()[i].getDate() == null){
+                roster.getRoster()[i].tuitionDue();
+            }
         }
         System.out.println("Calculation completed.");
     }
@@ -262,17 +264,14 @@ public class TuitionManager {
         }
     }
     private boolean checkRosterDuplicate(Student student, Roster roster){
-        System.out.println("Name: " + student.getProfile().getName() + " major: " + student.getProfile().getMajor() + " boolclasscheck: " +student.getClass());
         for (int i = 0; i < roster.getSize(); i++){
             if(roster.getRoster()[i].getProfile().getName().equals(student.getProfile().getName())
-            && roster.getRoster()[i].getProfile().getMajor().equals(student.getProfile().getMajor())){
+                    && roster.getRoster()[i].getProfile().getMajor().equals(student.getProfile().getMajor())){
                 System.out.println("Student is already in the roster.");
                 return true;
             };
         }
         return false;
     }
-
-
 
 }

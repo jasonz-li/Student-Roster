@@ -22,16 +22,20 @@ public class TriState extends NonResident{
         double NYDiscount = 4000;
         double CTDiscount = 5000;
         if (livesInCT){ // CT discount
-            if (this.getCreditHours() > 16){
-                tuition += fee - CTDiscount + 966 * this.getCreditHours();
+            if (this.getCreditHours() < 12){
+                tuition = 966 * this.getCreditHours() + 3268 * 0.8;
+            }else if (this.getCreditHours() > 16){
+                tuition = tuition + fee - CTDiscount + 966 * (this.getCreditHours() - 16);
             }
             else{
-                tuition += fee - CTDiscount;
+                tuition = tuition + fee - CTDiscount;
             }
         }
         else{ // NY discount
-            if (this.getCreditHours() > 16){
-                tuition += fee - NYDiscount + 966 * this.getCreditHours();
+            if (this.getCreditHours() < 12){
+                tuition = 966 * this.getCreditHours() + 3268 * 0.8;
+            }else if (this.getCreditHours() > 16){
+                tuition += fee - NYDiscount + 966 * (this.getCreditHours() - 16);
             }
             else{
                 tuition += fee - NYDiscount;
@@ -44,7 +48,7 @@ public class TriState extends NonResident{
     public boolean equals(Object obj) {
         TriState input = TriState.class.cast(obj);
         if (input.livesInNY == this.livesInNY && input.livesInCT == this.livesInCT && this.getProfile().getName().equals(input.getProfile().getName())
-        && this.getProfile().getMajor().equals(input.getProfile().getMajor())){
+                && this.getProfile().getMajor().equals(input.getProfile().getMajor())){
             return true;
         }
         else{
@@ -55,7 +59,7 @@ public class TriState extends NonResident{
 
     @Override
     public String toString() {  //John Doe:IT:18 credit hours:tuition due:30,937.00:total payment:0.00:last payment date: --/--/--:non-resident(tri-state):NY
-        String pattern = "####,####.##";
+        String pattern = "###,##0.00";
         DecimalFormat numberFormat = new DecimalFormat(pattern);
         Date studentDateCheck = super.getDate(); // gets the student date
         String dateString = "";
@@ -71,7 +75,7 @@ public class TriState extends NonResident{
         String string = this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getCreditHours()
                 + " credit hours:" + "tuition due:" + numberFormat.format(this.getTotalCost()) + ":" +
                 "total payment:" + numberFormat.format(this.getTotalPayment()) + ":" + "last payment date: "
-                + dateString + ":" + "non-resident(tri-state) " + CTorNY;
+                + dateString + ":" + "non-resident(tri-state):" + CTorNY;
 
         return string;
     }

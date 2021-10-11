@@ -5,7 +5,7 @@ public class Student {
     private int creditHours;
     private double totalCost = 0;
     private double totalPayment = 0;
-    private Date date;
+    private Date date = null;
 
     //Constructors
     public Student(){
@@ -39,11 +39,11 @@ public class Student {
 
     @Override
     public String toString() {  //John Doe:EE:18 credit hours:tuition due:0.00:total payment:0.00:last payment date: --/--/--:resident
-        String pattern = "####,####.##";
+        String pattern = "####,###0.00";
         DecimalFormat numberFormat = new DecimalFormat(pattern);
         String dateString = date.getDate();
         if(this.date == null){
-           dateString = "--/--/--";
+            dateString = "--/--/--";
         }
         String string = this.profile.getName() + ":" + this.profile.getMajor() + ":" + this.creditHours
                 + " credit hours:" + "tuition due:" + numberFormat.format(this.totalCost) + ":" +

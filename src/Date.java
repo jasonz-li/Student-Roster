@@ -140,6 +140,10 @@ public class Date implements Comparable<Date> {
         }
     }
 
+    public boolean getDateCleared(){
+        return this.dateCleared;
+    }
+
     public void setDateCleared(boolean bool){
         this.dateCleared = bool;
     }
