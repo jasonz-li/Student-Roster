@@ -171,6 +171,7 @@ public class TuitionManager {
                             if (financialAidInput <= 10000 && financialAidInput >= 0) {
                                 newRes.setFinancialAid(financialAidInput);
                                 newRes.setFinancialAidPaid(true);
+                                System.out.println("Tuition updated.");
                             } else {
                                 System.out.println("Invalid amount.");
                             }
