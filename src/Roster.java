@@ -120,10 +120,9 @@ public class Roster {
 
 
     public Student findStudent(String name, String major) {
-        Student wantedStudent = new Student();
         for (int i = 0; i < size; i++) {
             if (roster[i] != null) {
-                if (roster[i].equals(wantedStudent)) {
+                if (roster[i].getProfile().getName().equals(name) && roster[i].getProfile().getMajor().toString().equals(major)) {
                     return roster[i];
                 }
             }
