@@ -70,7 +70,7 @@ public class Roster {
                     Resident student = (Resident) roster[i];
                     System.out.println(student.toString());
                 }
-                else if(roster[i] instanceof TriState){         ////// NOT SURE IF I CAN DOWNCAST TO A CHILD OF A CHILD
+                else if(roster[i] instanceof TriState){
                     TriState student = (TriState) roster[i];
                     System.out.println(student.toString());
                 }

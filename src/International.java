@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 public class International extends NonResident{
     boolean studyingAbroad;
 
@@ -39,8 +41,22 @@ public class International extends NonResident{
 
 
     @Override
-    public String toString() {
-        String string = this.getProfile().toString() + ", " + this.getCreditHours();
+    public String toString() {  //Joshua Patel:CS:12 credit hours:tuition due:5,918.00:total payment:0.00:last payment date: --/--/--:non-resident:international:study abroad
+        String pattern = "####,####.##";
+        DecimalFormat numberFormat = new DecimalFormat(pattern);
+        String dateString = super.getDate().getDate(); // gets the student date and calls the Date file getDate()
+        if(this.getDate() == null){
+            dateString = "--/--/--";
+        }
+        String studyAbroad = "";
+        if (this.studyingAbroad == true) {
+            studyAbroad = "study abroad";
+        }
+        String string = this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getCreditHours()
+                + " credit hours:" + "tuition due:" + numberFormat.format(this.getTotalCost()) + ":" +
+                "total payment:" + numberFormat.format(this.getTotalPayment()) + ":" + "last payment date: "
+                + dateString + ":" + "non-resident:international:" + studyAbroad;
+
         return string;
     }
 

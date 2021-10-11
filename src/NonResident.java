@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 public class NonResident extends Student{
     boolean fullTime;
 
@@ -39,11 +41,22 @@ public class NonResident extends Student{
 
     }
 
+    //Rob Harrison:BA:12 credit hours:tuition due:0.00:total payment:0.00:last payment date: --/--/--:non-resident
     @Override
     public String toString() {
-        String string = this.getProfile().toString() + ", " + this.getCreditHours();
+        String pattern = "####,####.##";
+        DecimalFormat numberFormat = new DecimalFormat(pattern);
+        String dateString = super.getDate().getDate(); // gets the student date and calls the Date file getDate()
+        if(this.getDate() == null){
+            dateString = "--/--/--";
+        }
+
+        String string = this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getCreditHours()
+                + " credit hours:" + "tuition due:" + numberFormat.format(this.getTotalCost()) + ":" +
+                "total payment:" + numberFormat.format(this.getTotalPayment()) + ":" + "last payment date: "
+                + dateString + ":" + "non-resident";
+
         return string;
     }
 
 }
-//nonres, tristate, international, roster we do our own methods

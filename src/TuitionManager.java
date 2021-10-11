@@ -133,7 +133,26 @@ public class TuitionManager {
             }
 
             else if (input.equals("T")) { // pay tuition
-
+                if (!command.hasMoreTokens()) {
+                    System.out.println("Payment amount missing.");
+                }
+                else{
+                    double payment = Integer.parseInt(command.nextToken());
+                    Date date = new Date(command.nextToken());
+                    boolean paid = roster.findStudent(name, major).payTuition(payment, date);
+                    if (payment <= 0){
+                        System.out.println("Invalid amount.");
+                    }
+                    else if (!date.isValid()){
+                        System.out.println("Payment date invalid.");
+                    }
+                    else if (!paid){
+                        System.out.println("Payment applied.");
+                    }
+                    else{
+                        System.out.println("Amount is greater than amount due.");
+                    }
+                }
             }
         }
     }

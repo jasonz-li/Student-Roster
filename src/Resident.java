@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 public class Resident extends Student {
     //john
     private double financialAid = 0;
@@ -38,7 +40,23 @@ public class Resident extends Student {
         }
     }
 
+    //equals?
 
-    //tostring and maybe equals
+
+    @Override
+    public String toString() {  //John Doe:EE:18 credit hours:tuition due:0.00:total payment:0.00:last payment date: --/--/--:resident
+        String pattern = "####,####.##";
+        DecimalFormat numberFormat = new DecimalFormat(pattern);
+        String dateString = super.getDate().getDate(); // gets the student date and calls the Date file getDate()
+        if(this.getDate() == null){
+            dateString = "--/--/--";
+        }
+        String string = this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getCreditHours()
+                + " credit hours:" + "tuition due:" + numberFormat.format(this.getTotalCost()) + ":" +
+                "total payment:" + numberFormat.format(this.getTotalPayment()) + ":" + "last payment date: "
+                + dateString + ":" + "resident";
+
+        return string;
+    }
 
 }
