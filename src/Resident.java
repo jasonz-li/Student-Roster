@@ -3,6 +3,7 @@ import java.text.DecimalFormat;
 public class Resident extends Student {
     //john
     private double financialAid = 0;
+    private boolean financialAidPaid = false;
 
 
     public Resident (String name, String major, int creditHours){
@@ -59,4 +60,7 @@ public class Resident extends Student {
         return string;
     }
 
+    public void setFinancialAidPaid(Boolean bool) {this.financialAidPaid = bool;}
+
+    public Boolean getFinancialAidPaid() {return this.financialAidPaid;}
 }

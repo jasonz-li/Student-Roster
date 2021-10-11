@@ -129,7 +129,7 @@ public class TuitionManager {
             }
 
             else if (input.equals("F")) { // set financial aid
-
+                handleF(name, major, command, roster);
             }
 
             else if (input.equals("T")) { // pay tuition
@@ -157,6 +157,37 @@ public class TuitionManager {
         }
     }
 
+    public void handleF(String name, String major, StringTokenizer command, Roster roster) {
+        if(command.hasMoreTokens()) {
+            Double financialAidInput = Double.parseDouble(command.nextToken());
+            Student student = roster.findStudent(name, major);
+            if(student == null){                                // student not in roster
+                System.out.println("Student not in the roster.");
+            }else{                                // in the roster
+                if(student.getCreditHours() >= 12) {
+                    if (student instanceof Resident) {
+                        Resident newRes = (Resident) student;
+                        if (newRes.getFinancialAidPaid() == false) { //if it's not paid, pay and set true
+                            if (financialAidInput <= 10000 && financialAidInput >= 0) {
+                                newRes.setFinancialAid(financialAidInput);
+                                newRes.setFinancialAidPaid(true);
+                            } else {
+                                System.out.println("Invalid amount.");
+                            }
+                        } else {
+                            System.out.println("Awarded once already.");
+                        }
+                    } else {
+                        System.out.println("Not a resident student.");
+                    }
+                }else{
+                    System.out.println("Student not in the roster.");
+                }
+            }
+        }else{
+            System.out.println("Missing the amount.");
+        }
+    }
 
     private void calculate(Roster roster){ // ???????????
         for (int i = 0; i < roster.getSize(); i++){
