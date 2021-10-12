@@ -28,12 +28,12 @@ public class Resident extends Student {
         double universityFee = 3268;
         int creditsOver16 = 0;
         if(super.getCreditHours() < 12 && super.getCreditHours() >= 3) {     //part-time
-            setTotalCost(super.getCreditHours() * partTimeCreditRate + (universityFee * 0.8));
+            this.setTotalCost(super.getCreditHours() * partTimeCreditRate + (universityFee * 0.8));
         }else if(super.getCreditHours() >= 12 && super.getCreditHours() <= 24 ){              //full time
             if(super.getCreditHours() > 16){
                 creditsOver16 = super.getCreditHours() - 16;
             }
-            setTotalCost(tuition + creditsOver16 * partTimeCreditRate + universityFee);
+            this.setTotalCost(tuition + creditsOver16 * partTimeCreditRate + universityFee);
         }else{
             //improper hours
         }

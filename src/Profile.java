@@ -1,5 +1,5 @@
 /**
- *
+ *System.out
  */
 
 public class Profile {

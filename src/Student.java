@@ -56,7 +56,8 @@ public class Student {
                 this.date = date;
                 this.totalCost = this.totalCost - payment;
                 return true;
-            }else{                //payment > cost
+            }
+            else{                //payment > cost
                 return false;
             }
         }

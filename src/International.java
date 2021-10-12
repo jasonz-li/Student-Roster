@@ -70,16 +70,22 @@ public class International extends NonResident{
         }else{
             dateString = this.getDate().getDate();
         }
+        String str = "";
         String studyAbroad = "";
         if (this.studyingAbroad == true) {
             studyAbroad = "study abroad";
+            str = this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getCreditHours()
+                    + " credit hours:" + "tuition due:" + numberFormat.format(this.getTotalCost()) + ":" +
+                    "total payment:" + numberFormat.format(this.getTotalPayment()) + ":" + "last payment date: "
+                    + dateString + ":" + "non-resident:international:" + studyAbroad;
         }
-        String string = this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getCreditHours()
-                + " credit hours:" + "tuition due:" + numberFormat.format(this.getTotalCost()) + ":" +
-                "total payment:" + numberFormat.format(this.getTotalPayment()) + ":" + "last payment date: "
-                + dateString + ":" + "non-resident:international:" + studyAbroad;
-
-        return string;
+        else{
+            str = this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getCreditHours()
+                    + " credit hours:" + "tuition due:" + numberFormat.format(this.getTotalCost()) + ":" +
+                    "total payment:" + numberFormat.format(this.getTotalPayment()) + ":" + "last payment date: "
+                    + dateString + ":" + "non-resident:international";
+        }
+        return str;
     }
 
 }
