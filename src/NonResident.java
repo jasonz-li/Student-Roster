@@ -1,16 +1,28 @@
-import java.sql.SQLOutput;
+/**
+ *
+ */
+
 import java.text.DecimalFormat;
 
 public class NonResident extends Student{
-    boolean fullTime;
+    public boolean fullTime;
 
 
-
+    /**
+     * Constructs a NonResident
+     * @param name input name
+     * @param major input major
+     * @param credits input credits
+     */
     public NonResident(String name, String major, int credits){
         super(name, major, credits);
         this.fullTime = credits >= 12;
     }
 
+
+    /**
+     * Abstract class.
+     */
     public void tuitionDue() {
         double tuition = 29737;
         double fee = 3268;
@@ -28,7 +40,12 @@ public class NonResident extends Student{
         this.setTotalCost(tuition);
     }
 
-
+    /**
+     * Checks to see if obj is equal to NonResident.
+     *
+     * @param obj input student
+     * @return returns true if obj is equal, otherwise returns false
+     */
     @Override
     public boolean equals(Object obj) {
         NonResident input = NonResident.class.cast(obj);
@@ -42,6 +59,10 @@ public class NonResident extends Student{
 
     }
 
+    /**
+     * Returns information in string format.
+     * @return returns information in 'name:major:creditHours:tuitionDue:totalPayment:lastPaymentDate:typeOfStudent' format.
+     */
     @Override
     public String toString() {
         String pattern = "###,##0.00";

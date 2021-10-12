@@ -1,3 +1,10 @@
+/**
+ * The Student class holds the information of a student, such as their profile, which contains their
+ * name and major. Methods like equals() compare students and toString() converts the student to a string format.
+ * There are also getters and setters for the student's instance variables.
+ * @author Jason Li, John Leng
+ */
+
 import java.text.DecimalFormat;
 
 public class Student {
@@ -7,36 +14,58 @@ public class Student {
     private double totalPayment = 0;
     private Date date = null;
 
-    //Constructors
+    /**
+     * Constructor for Student class
+     */
     public Student(){
     }
 
+    /**
+     * Constructs a Student.
+     *
+     * @param name input name
+     * @param major input major
+     * @param creditHours input credit hours
+     */
     public Student (String name, String major, int creditHours){
         this.profile = new Profile(name, major);
         this.creditHours = creditHours;
     }
 
-    //Treat like an abstract class
+    /**
+     * Abstract class.
+     */
     public void tuitionDue() {
     }
 
+    /**
+     * Pays the tuition by subtracting the total tuition of student by input payment.
+     *
+     * @param payment input payment
+     * @param date date of payment
+     * @return boolean returns true if payment was successful, otherwise returns false
+     */
     public boolean payTuition(double payment, Date date){
-        if(payment <= 0){
+        if (payment <= 0){
             System.out.println("Invalid amount.");
             return false;
-        }else{
-            if(payment <= this.totalCost){
+        }
+        else{
+            if (payment <= this.totalCost){
                 this.totalPayment = this.totalPayment + payment;
                 this.date = date;
                 this.totalCost = this.totalCost - payment;
                 return true;
-            }else{                  //payment > cost
+            }else{                //payment > cost
                 return false;
             }
         }
     }
 
-
+    /**
+     * Returns information in string format.
+     * @return returns information in 'name:major:creditHours:tuitionDue:totalPayment:lastPaymentDate:typeOfStudent' format.
+     */
     @Override
     public String toString() {  //John Doe:EE:18 credit hours:tuition due:0.00:total payment:0.00:last payment date: --/--/--:resident
         String pattern = "####,###0.00";
@@ -53,6 +82,12 @@ public class Student {
         return string;
     }
 
+    /**
+     * Checks to see if Object o is equal to Student.
+     *
+     * @param o input student
+     * @return returns true if o is equal, otherwise returns false
+     */
     @Override
     public boolean equals(Object o){
         if (o == this) {
@@ -67,21 +102,47 @@ public class Student {
         return false;
     }
 
+
+    /**
+     * Gets profile.
+     * @return profile of student
+     */
     public Profile getProfile() {return this.profile;}
 
+    /**
+     * Gets credit hours.
+     * @return credit hours of student.
+     */
     public int getCreditHours() {return this.creditHours;}
 
+    /**
+     * Sets credit hours of student.
+     * @param credits input credits.
+     */
     public void setCreditHours(int credits) {this.creditHours = credits;}
 
+    /**
+     * Gets the total cost of tuition of student.
+     * @return total cost as a double.
+     */
     public double getTotalCost() {return this.totalCost;}
 
+    /**
+     * Sets the total cost of tuition for student.
+     * @param totalCost input total cost.
+     */
     public void setTotalCost(double totalCost) {this.totalCost = totalCost;}
 
+    /**
+     * Gets last payment date of student.
+     * @return last payment date.
+     */
     public Date getDate() {return this.date;}
 
-    public void setDate(Date date){this.date = date;}
-
+    /**
+     * Gets total amount of payment student has paid.
+     * @return total amount of payment.
+     */
     public double getTotalPayment() {return this.totalPayment;}
 
-    public void setTotalPayment(double payment) {this.totalPayment = payment;}
 }

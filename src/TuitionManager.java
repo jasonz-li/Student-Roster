@@ -1,4 +1,7 @@
-import java.util.Locale;
+/**
+ *
+ */
+
 import java.util.StringTokenizer;
 import java.util.Scanner;
 
@@ -37,6 +40,11 @@ public class TuitionManager {
         scanner.close();
     }
 
+    /**
+     * Handles the print command.
+     * @param input print command; can be 'P', 'PN', or 'PT'.
+     * @param roster roster of students
+     */
     private void handlePrint(String input, Roster roster){
         if(roster.getSize() == 0){
             System.out.println("Student roster is empty!");
@@ -51,6 +59,12 @@ public class TuitionManager {
         }
     }
 
+    /**
+     * Handles the add student function.
+     * @param input add command; can be 'AR', 'AT', 'AI', or 'AN'.
+     * @param command command line inputs
+     * @param roster roster of students
+     */
     private void handleAdd(String input, StringTokenizer command, Roster roster){
         if(command.hasMoreTokens()){
             String name = command.nextToken();
@@ -117,10 +131,14 @@ public class TuitionManager {
         }else{
             System.out.println("Missing data in command line.");return;
         }
-
     }
 
-    private Boolean checkMajor(String major) {
+    /**
+     * Checks to see if input major is a valid major.
+     * @param major input major
+     * @return true if major is valid and false if not valid.
+     */
+    private boolean checkMajor(String major) {
         if (major.equals("CS") || major.equals("IT")  ||
                 major.equals("BA") || major.equals("EE") || major.equals("ME")) {
             return true;
@@ -130,6 +148,12 @@ public class TuitionManager {
         }
     }
 
+    /**
+     * Handles the remove, set abroad status, set financial aid, and pay tuition commands.
+     * @param input remove, set abroad status, set financial aid, or pay tuition command.
+     * @param command command line inputs
+     * @param roster roster of students
+     */
     private void handleRSFT(String input, StringTokenizer command, Roster roster){
         if (!command.hasMoreTokens()){
             System.out.println("Missing data in command line.");
@@ -214,13 +238,15 @@ public class TuitionManager {
                     }
 
                 }
-
-
             }
         }
     }
 
-    private void calculate(Roster roster){ // ???????????
+    /**
+     * Initializes the tuition for new students in the roster.
+     * @param roster roster of students
+     */
+    private void calculate(Roster roster){
         for (int i = 0; i < roster.getSize(); i++){
             if (roster.getRoster()[i].getDate() == null){
                 roster.getRoster()[i].tuitionDue();
@@ -229,7 +255,13 @@ public class TuitionManager {
         System.out.println("Calculation completed.");
     }
 
-
+    /**
+     * Helper for the set financial aid method
+     * @param name student name
+     * @param major student major
+     * @param command command line inputs
+     * @param roster roster of students
+     */
     public void handleF(String name, String major, StringTokenizer command, Roster roster) {
         if(command.hasMoreTokens()) {
             Double financialAidInput = Double.parseDouble(command.nextToken());
@@ -263,6 +295,13 @@ public class TuitionManager {
             System.out.println("Missing the amount.");
         }
     }
+
+    /**
+     * Checks to see if student is already in the roster.
+     * @param student student name
+     * @param roster roster
+     * @return true if student is already in the roster, otherwise returns false.
+     */
     private boolean checkRosterDuplicate(Student student, Roster roster){
         for (int i = 0; i < roster.getSize(); i++){
             if(roster.getRoster()[i].getProfile().getName().equals(student.getProfile().getName())

@@ -1,9 +1,20 @@
+/**
+ * asd
+ */
+
 import java.text.DecimalFormat;
 
 public class TriState extends NonResident{
-    boolean livesInCT;
-    boolean livesInNY;
+    public boolean livesInCT;
+    public boolean livesInNY;
 
+    /**
+     * Constructs a Tri-State area student.
+     * @param name input name
+     * @param major input major
+     * @param credits input credits
+     * @param state input state; can only be NY or CT
+     */
     public TriState(String name, String major, int credits, String state){
         super(name, major, credits);
         if (state.toUpperCase().equals("NY")){
@@ -16,6 +27,9 @@ public class TriState extends NonResident{
         }
     }
 
+    /**
+     * Abstract class.
+     */
     public void tuitionDue() {
         double tuition = 29737;
         double fee = 3268;
@@ -44,6 +58,12 @@ public class TriState extends NonResident{
         this.setTotalCost(tuition);
     }
 
+    /**
+     * Checks to see if obj is equal to a TriState student.
+     *
+     * @param obj input student
+     * @return returns true if obj is equal, otherwise returns false
+     */
     @Override
     public boolean equals(Object obj) {
         TriState input = TriState.class.cast(obj);
@@ -56,7 +76,10 @@ public class TriState extends NonResident{
         }
     }
 
-
+    /**
+     * Returns information in string format.
+     * @return returns information in 'name:major:creditHours:tuitionDue:totalPayment:lastPaymentDate:typeOfStudent' format.
+     */
     @Override
     public String toString() {  //John Doe:IT:18 credit hours:tuition due:30,937.00:total payment:0.00:last payment date: --/--/--:non-resident(tri-state):NY
         String pattern = "###,##0.00";

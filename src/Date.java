@@ -140,10 +140,18 @@ public class Date implements Comparable<Date> {
         }
     }
 
+    /**
+     * Checks to see if date has been cleared because of International students.
+     * @return true if the date has been cleared, otherwise false.
+     */
     public boolean getDateCleared(){
         return this.dateCleared;
     }
 
+    /**
+     * Sets setDateCleared to input boolean.
+     * @param bool input boolean
+     */
     public void setDateCleared(boolean bool){
         this.dateCleared = bool;
     }

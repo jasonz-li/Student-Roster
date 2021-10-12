@@ -1,15 +1,27 @@
+/**
+ *
+ */
+
 import java.text.DecimalFormat;
 
+
 public class Resident extends Student {
-    //john
     private double financialAid = 0;
     private boolean financialAidPaid = false;
 
-
+    /**
+     * Constructor a Resident.
+     * @param name input name
+     * @param major input major
+     * @param creditHours input credit hours
+     */
     public Resident (String name, String major, int creditHours){
         super(name, major, creditHours);
-
     }
+
+    /**
+     * Abstract class.
+     */
     public void tuitionDue() {
         double tuition = 12536;
         double partTimeCreditRate = 404;
@@ -27,6 +39,11 @@ public class Resident extends Student {
         }
     }
 
+    /**
+     * Sets the financial aid of the student.
+     * @param aid input aid amount,
+     * @return true if aid was successfully given and returns false if student's aid limit has been capped.
+     */
     public boolean setFinancialAid(double aid) {
         if (aid < 10000 && aid >= 0) {
             this.financialAid = aid;
@@ -41,7 +58,10 @@ public class Resident extends Student {
         }
     }
 
-
+    /**
+     * Returns information in string format.
+     * @return returns information in 'name:major:creditHours:tuitionDue:totalPayment:lastPaymentDate:typeOfStudent' format.
+     */
     @Override
     public String toString() {  //John Doe:EE:18 credit hours:tuition due:0.00:total payment:0.00:last payment date: --/--/--:resident
         String pattern = "###,##0.00";
@@ -60,7 +80,18 @@ public class Resident extends Student {
         return string;
     }
 
+
+    /**
+     * Gets financial aid paid to check if it has been offered already or not.
+     * @return true if financial aid was offered already and false if it was not offered.
+     */
+    public boolean getFinancialAidPaid() {return this.financialAidPaid;}
+
+    /**
+     *  Sets financial aid paid.
+     * @param bool input boolean.
+     */
     public void setFinancialAidPaid(boolean bool) {this.financialAidPaid = bool;}
 
-    public boolean getFinancialAidPaid() {return this.financialAidPaid;}
+
 }
