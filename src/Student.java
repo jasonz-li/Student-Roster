@@ -146,4 +146,10 @@ public class Student {
      */
     public double getTotalPayment() {return this.totalPayment;}
 
+    /**
+     * Sets total payment to input double.
+     * @param doub input double
+     */
+    public void setTotalPayment(double doub) {this.totalPayment = doub;};
+
 }

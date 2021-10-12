@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class TuitionManager {
     public void run(){
-        System.out.println("Tuition manager starts running.");
+        System.out.println("Tuition Manager starts running.");
         Scanner scanner = new Scanner(System.in);
         Roster roster = new Roster();
         while (true){
@@ -161,6 +161,7 @@ public class TuitionManager {
         else {
             String name = command.nextToken();
             String major = command.nextToken().toUpperCase();
+            boolean moreThan12 = false;
             if (input.equals("R")) {
                 Student target = roster.findStudent(name, major);
                 if (target != null) {
@@ -178,16 +179,24 @@ public class TuitionManager {
                         if (roster.findStudent(name, major).getClass().toString().equals(International.class.toString())){
                             boolean bool = Boolean.parseBoolean(command.nextToken());
                             International.class.cast(roster.findStudent(name, major)).studyingAbroad = bool;
-                            if (International.class.cast(roster.findStudent(name, major)).getCreditHours() > 12
+                            if (International.class.cast(roster.findStudent(name, major)).getCreditHours() >= 12
                                     && International.class.cast(roster.findStudent(name, major)).studyingAbroad) {
                                 roster.findStudent(name, major).setCreditHours(12);
+                                roster.findStudent(name, major).setTotalPayment(0.00);
+                                moreThan12 = true;
                                 if (roster.findStudent(name, major).getDate() == null){
                                     roster.findStudent(name, major).tuitionDue();
                                     System.out.println("Tuition updated.");
                                 }
                                 else{
                                     roster.findStudent(name, major).getDate().setDateCleared(true);
-                                    roster.findStudent(name, major).tuitionDue();
+                                    if (moreThan12){
+                                        roster.findStudent(name, major).tuitionDue();
+                                        roster.findStudent(name, major).setTotalPayment(0.00);
+                                    }
+                                    else{
+                                        roster.findStudent(name, major).tuitionDue();
+                                    }
                                     System.out.println("Tuition updated.");
                                 }
                             }
@@ -198,12 +207,12 @@ public class TuitionManager {
                             }
                         }
                         else {
-                            System.out.println("Couldn't find international student.");
+                            System.out.println("Couldn't find the international student.");
                         }
 
                     }
                     else {
-                        System.out.println("Couldn't find international student.");
+                        System.out.println("Couldn't find the international student.");
                     }
                 }
 
@@ -266,7 +275,7 @@ public class TuitionManager {
             Double financialAidInput = Double.parseDouble(command.nextToken());
             Student student = roster.findStudent(name, major);
             if(student == null){                                // student not in roster
-                System.out.println("Student is not in the roster.");
+                System.out.println("Student not in the roster.");
             }else{                                // in the roster
                 if(student.getCreditHours() >= 12) {
                     if (student instanceof Resident) {
