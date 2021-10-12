@@ -1,5 +1,10 @@
-import org.junit.Test;
+/**
+ * This is the JUnit test file to test Roster's add() and remove() methods.
+ *
+ * @author Jason Li, John Leng
+ */
 
+import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class RosterTest {

@@ -1,3 +1,13 @@
+/**
+ * Tuition Manager takes commands from the user to perform actions on students in the Roster.
+ * Some methods perform the following tasks adding, removing, paying tuition, printing, and calculating tuition.
+ * checkRosterDuplicate() checks if a student is already in the roster.
+ * checkMajor() ensures the inputted major is a proper major
+ * handleRSFT() handles commands R, S, F, and T.
+ *
+ * @author Jason Li, John Leng
+ */
+
 import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.Scanner;

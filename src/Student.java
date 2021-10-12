@@ -1,3 +1,11 @@
+/**
+ * The Student is a super class for other types of students: International, TriState, NonResident, Resident
+ * payTuition() takes in a payment amount and date to pay off the tuition.
+ * totalCost holds the value for the tuition due;
+ * toString() formats the student to list their attributes.
+ *
+ * @author Jason Li, John Leng
+ */
 import java.text.DecimalFormat;
 
 public class Student {
