@@ -1,5 +1,9 @@
 /**
+ * The NonResident class extends from Student, and it is a type of student in the roster.
+ * Tuition is calculated accordingly based on whether a student is full time, and credit hours
+ * toString() formats the student to list their attributes.
  *
+ * @author Jason Li, John Leng
  */
 
 import java.text.DecimalFormat;

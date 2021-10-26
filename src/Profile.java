@@ -1,5 +1,9 @@
 /**
- *System.out
+ * Profile is the identifier for a unique student: it has their name and major.
+ * equals() compares two instances of Profile.
+ * toString() changes the profile to a string format.
+ *
+ * @author Jason Li, John Leng
  */
 
 public class Profile {

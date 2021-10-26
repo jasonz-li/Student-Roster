@@ -1,5 +1,11 @@
 /**
+ * Tuition Manager takes commands from the user to perform actions on students in the Roster.
+ * Some methods perform the following tasks adding, removing, paying tuition, printing, and calculating tuition.
+ * checkRosterDuplicate() checks if a student is already in the roster.
+ * checkMajor() ensures the inputted major is a proper major
+ * handleRSFT() handles commands R, S, F, and T.
  *
+ * @author Jason Li, John Leng
  */
 
 import java.util.StringTokenizer;
@@ -74,7 +80,7 @@ public class TuitionManager {
                 if(command.hasMoreTokens()){
                     try{
                         int creditHours = Integer.parseInt(command.nextToken());
-                        if(checkMajor(majorUpperCase) == false){System.out.println("'" + major + "'" + " is not a valid major."); return;};
+                        if(checkMajor(majorUpperCase) == false){System.out.println("'" + major + "'" + " is not a valid major."); return;}
                         if (creditHours < 0){System.out.println("Credit hours cannot be negative.");return;}
                         if (creditHours < 3){System.out.println("Minimum credit hours is 3.");return;}
                         if (creditHours > 24){System.out.println("Credit hours exceed the maximum 24.");return;}
@@ -316,7 +322,7 @@ public class TuitionManager {
                     && roster.getRoster()[i].getProfile().getMajor().equals(student.getProfile().getMajor())){
                 System.out.println("Student is already in the roster.");
                 return true;
-            };
+            }
         }
         return false;
     }

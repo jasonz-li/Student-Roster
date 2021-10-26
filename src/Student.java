@@ -1,7 +1,9 @@
 /**
- * The Student class holds the information of a student, such as their profile, which contains their
- * name and major. Methods like equals() compare students and toString() converts the student to a string format.
- * There are also getters and setters for the student's instance variables.
+ * The Student is a super class for other types of students: International, TriState, NonResident, Resident
+ * payTuition() takes in a payment amount and date to pay off the tuition.
+ * totalCost holds the value for the tuition due;
+ * toString() formats the student to list their attributes.
+ *
  * @author Jason Li, John Leng
  */
 
@@ -150,6 +152,6 @@ public class Student {
      * Sets total payment to input double.
      * @param doub input double
      */
-    public void setTotalPayment(double doub) {this.totalPayment = doub;};
+    public void setTotalPayment(double doub) {this.totalPayment = doub;}
 
 }

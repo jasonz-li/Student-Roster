@@ -1,7 +1,11 @@
 /**
+ * The Resident class extends from Student, and it is a type of student in the roster.
+ * Tuition is calculated accordingly based credit hours and financial aid is offered.
+ * setFinancialAid() sets the financial aid and only operates once.
+ * toString() formats the student to list their attributes.
  *
+ * @author Jason Li, John Leng
  */
-
 import java.text.DecimalFormat;
 
 

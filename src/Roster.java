@@ -1,7 +1,12 @@
 /**
+ * Roster keeps track of all the students in an array and allows for adding, removing, finding, and printing
+ * printCurrentOrder() is a helper method that prints the current order of the array.
+ * printByPaymentDate() sorts students by chronological order of their last payment date and calls
+ * printPaymentDays() in order to print the list.
+ * findStudent() helps to find students based on their name and major.
  *
+ * @author Jason Li, John Leng
  */
-
 public class Roster {
     private Student[] roster;
     private int size; // keep track of the number of students in the roster

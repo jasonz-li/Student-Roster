@@ -102,7 +102,7 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * If the inputed date is older than the date the function is called on, returns 1, else returns 0.
+     * If the inputted date is older than the date the function is called on, returns 1, else returns 0.
      * @param date input date
      * @return 1 if the inputed date is older, 0 if it's not older
      */
